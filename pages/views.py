@@ -4,7 +4,7 @@ from pages.models import Page, PageAlias
 from pages.http import get_language_from_request, remove_slug
 from pages.urlconf_registry import get_urlconf
 
-from django.http import Http404, HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import Http404, HttpResponsePermanentRedirect
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import resolve, Resolver404
 from django.utils import translation
@@ -125,10 +125,10 @@ class Details(object):
         current_page = context['current_page']
         lang = context['lang']
         if current_page.redirect_to_url:
-            return HttpResponseRedirect(current_page.redirect_to_url)
+            return HttpResponsePermanentRedirect(current_page.redirect_to_url)
 
         if current_page.redirect_to:
-            return HttpResponseRedirect(
+            return HttpResponsePermanentRedirect(
                 current_page.redirect_to.get_url_path(lang))
 
     def get_navigation(self, request, path, lang):
