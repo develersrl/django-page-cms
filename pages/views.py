@@ -61,6 +61,12 @@ class Details(object):
         else:
             context['current_page'] = current_page
 
+        # We found the page we were looking for (either directly or through an alias) but the path
+        # didn't end with a trailing slash, which we don't like, so we permanently redirect the
+        # client to that.
+        if path and path.strip() != '/' and current_page and not path.endswith('/'):
+            return HttpResponsePermanentRedirect(path + '/')
+
         # If unauthorized to see the pages, raise a 404, That can
         # happen with expired pages.
         if not is_staff and not current_page.visible:
