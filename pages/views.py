@@ -65,7 +65,7 @@ class Details(object):
         # didn't end with a trailing slash, which we don't like, so we permanently redirect the
         # client to that.
         if path and path.strip() != '/' and current_page and not path.endswith('/'):
-            return HttpResponsePermanentRedirect(path + '/')
+            return HttpResponsePermanentRedirect('/{}/'.format(path))
 
         # If unauthorized to see the pages, raise a 404, That can
         # happen with expired pages.
